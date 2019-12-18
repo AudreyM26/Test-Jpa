@@ -1,9 +1,12 @@
 package bibliotheque.entites;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.*;
+
+import java.util.Iterator;
 
 
 @Entity
@@ -28,9 +31,9 @@ public class Emprunt {
 	private Client client;
 	
 	@Column(name="DATE_DEBUT")
-	private LocalDate dateBegin;
+	private LocalDateTime dateBegin;
 	@Column(name="DATE_FIN")
-	private LocalDate dateEnd;
+	private LocalDateTime dateEnd;
 	@Column(name="DELAI")
 	private int delai;
 	
@@ -45,7 +48,13 @@ public class Emprunt {
 			texte = texte+"- date fin : "+this.getDateEnd();
 		}
 	
-		texte = texte+" - délai :"+this.getDelai()+" jours";
+		texte = texte+" - délai :"+this.getDelai()+" jours \n";
+		
+		Iterator<Livre> it = this.getLivres().iterator();
+		while(it.hasNext()){
+	         texte = texte+" "+it.next().toString()+"\n";
+	    }
+		
 		return texte;
 		
 	}
@@ -67,28 +76,28 @@ public class Emprunt {
 	/**
 	 * @return the dateBegin
 	 */
-	public LocalDate getDateBegin() {
+	public LocalDateTime getDateBegin() {
 		return dateBegin;
 	}
 
 	/**
 	 * @param dateBegin the dateBegin to set
 	 */
-	public void setDateBegin(LocalDate dateBegin) {
+	public void setDateBegin(LocalDateTime dateBegin) {
 		this.dateBegin = dateBegin;
 	}
 
 	/**
 	 * @return the dateEnd
 	 */
-	public LocalDate getDateEnd() {
+	public LocalDateTime getDateEnd() {
 		return dateEnd;
 	}
 
 	/**
 	 * @param dateEnd the dateEnd to set
 	 */
-	public void setDateEnd(LocalDate dateEnd) {
+	public void setDateEnd(LocalDateTime dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 

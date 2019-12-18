@@ -1,5 +1,6 @@
 package bibliotheque;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -36,14 +37,15 @@ public class ApplicationBibliotheque {
 		
 		
 		TypedQuery<Emprunt> empruntQuery = em.createQuery("SELECT e FROM Emprunt e WHERE ID=:id",Emprunt.class);
-		empruntQuery.setParameter("id","1");
+		empruntQuery.setParameter("id","2");
 		
 		
 		List<Emprunt> emprunts = empruntQuery.getResultList();
-		
+	
 		for(Emprunt e : emprunts){
-			System.out.println(e.getLivres());
+			System.out.println("id emprunt "+e.getId()+" "+e);
 		}
+		
 		
 		TypedQuery<Emprunt> empruntClientQuery = em.createQuery("SELECT e FROM Emprunt e WHERE ID_CLIENT=:id_client",Emprunt.class);
 		empruntClientQuery.setParameter("id_client","3");
@@ -52,7 +54,8 @@ public class ApplicationBibliotheque {
 		List<Emprunt> empruntsClient = empruntClientQuery.getResultList();
 		
 		for(Emprunt e : empruntsClient){
-			System.out.println(e.getLivres()+" "+e);
+			System.out.println(e.getClient().getNom());
+			System.out.println(e);
 		}
 		
 		em.close();
