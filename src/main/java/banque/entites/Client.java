@@ -1,6 +1,7 @@
 package banque.entites;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -32,7 +33,7 @@ public class Client {
 	private Banque banque;
 	
 	@ManyToMany(mappedBy="clients")
-	private Set<Compte> comptes;
+	private Set<Compte> comptes= new HashSet <Compte>();
 	
 	public Client() {
 		super();

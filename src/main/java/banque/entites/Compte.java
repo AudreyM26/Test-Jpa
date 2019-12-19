@@ -1,5 +1,7 @@
 package banque.entites;
 
+
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -7,8 +9,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="COMPTE")
+@Inheritance(strategy = InheritanceType.JOINED)
 
-public class Compte {
+public class Compte  {
 
 	@Id
 	@GeneratedValue (strategy=GenerationType.IDENTITY)
@@ -26,11 +29,11 @@ public class Compte {
 			joinColumns=@JoinColumn(name="ID_COMPTE",referencedColumnName="ID"),
 			inverseJoinColumns=@JoinColumn(name="ID_CLIENT",referencedColumnName="ID")
 	)
-	private Set<Client> clients;
+	private Set<Client> clients = new HashSet <Client>();
 	
 	@OneToMany(mappedBy="compte")
-	private Set<Operation> operations;
-
+	private Set<Operation> operations = new HashSet <Operation>();
+	
 	public Compte() {
 		super();
 	}
@@ -104,6 +107,5 @@ public class Compte {
 	public void setOperations(Set<Operation> operations) {
 		this.operations = operations;
 	}
-	
 	
 }
